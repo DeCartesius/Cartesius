@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property='og:title' content='Cartesius'/>
+    <meta property='og:description' content='Elegant use of AFRAME'/>
+    <meta property="og:image" content="./assets/img/social.jpg">
+
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script async src="js/main.js"></script>
+    <link rel="icon" type="image/png" href="favicon.ico" />
+    <title>Cartesius</title>
+</head>
+
+<body>
+    <div class="links">
+        <a href="https://decartesius.github.io/Cartesius/"  target="_blank" class="btn github">
+            <svg height="25" viewBox="0 0 16 16" version="1.1" width="25" aria-hidden="true"><path fill="black" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+        </a>
+    </div>
+
+    <div class="text-wrap">
+        <h1 class="quote">“I think; therefore I am.”</h1>
+        <h2 class="philosopher">― René Descartes</h2>
+    </div>
+
+    <!-- AFRAME, Three.js scene -->
+    <a-scene vr-mode-ui="enabled: false" loading-screen="enabled: false">
+        <!-- Preloading butterfly body and wings -->
+        <a-assets>
+            <a-asset-item id="body"  src="./assets/model/body.glb"></a-asset-item>
+            <a-asset-item id="wings0"  src="./assets/model/wings.glb"></a-asset-item>
+            <a-asset-item id="wings1"  src="./assets/model/wings1.glb"></a-asset-item>
+            <a-asset-item id="wings2"  src="./assets/model/wings2.glb"></a-asset-item>
+            <a-asset-item id="wings3"  src="./assets/model/wings3.glb"></a-asset-item>
+        </a-assets>
+        <!-- Conditionin for wing selection happens in main.js and influences and toggles wing visiblity -->
+        <a-gltf-model scale="15 15 15" rotation="0 220 0" src="#body">
+            <a-gltf-model class="wings0" animation-mixer src="#wings0" visible="true">
+            </a-gltf-model>
+            <a-gltf-model class="wings1" animation-mixer src="#wings1" visible="false">
+            </a-gltf-model>
+            <a-gltf-model class="wings2" animation-mixer src="#wings2" visible="false">
+            </a-gltf-model>
+            <a-gltf-model class="wings3" animation-mixer src="#wings3" visible="false">
+            </a-gltf-model>
+        </a-gltf-model>
+        <!-- AFRAME/three.js camera with orbit controls - orbit controls influences the auto and manual rotation around the butterfly-->
+        <a-entity camera look-controls
+            orbit-controls="target: 0 1.6 -0.5; minDistance: 0.5; maxDistance: 160; initialPosition: 0 10 15; autoRotate: true; autoRotateSpeed: 0.1; enablePan: false;">
+        </a-entity>
+        <a-sky src="./assets/img/sky.jpg"></a-sky>
+        <!-- Btns for wing selection -->
+        <div class="btns-wings">
+            <button class="wing wing0" onclick="changeWings(0)"></button>
+            <button class="wing wing1" onclick="changeWings(1)"></button>
+            <button class="wing wing2" onclick="changeWings(2)"></button>
+            <button class="wing wing3" onclick="changeWings(3)"></button>
+        </div>
+    </a-scene>
+    
+    <!-- loops for loading animation -->
+    <div class="loading-overlay">
+        <h1 class="txt">loading</h1>
+        <div class="loop">
+            <div class="loop inner-loop">
+                <div class="loop inner-loop">
+                    <div class="loop inner-loop">
+                        <div class="loop inner-loop">
+                            <div class="loop inner-loop"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
